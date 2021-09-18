@@ -1,7 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import random
-import struct
 
 # Função que exibe o ambiente na tela
 def exibir(I):
@@ -22,17 +20,37 @@ def exibir(I):
     plt.pause(1)
     plt.clf()
 
-def agenteReativoSimples(x, y, estado):
-    acoes = ["acima", "abaixo", "esquerda", "direita", "aspirar"]
-    if estado == 2:
-        return acoes[4]
-    #Fazer parte do mapeamento
-    #Teste
-    if x == 1 and y == 1:
-        return acoes[1]
 
-def geraAmbiente():
-    pass
+# Função de ação do agente
+def agenteReativoSimples(x, y, estado):
+
+    #  Variáveis de mapeamento do ultimo movimento do agente
+    global x_dir  # 0 = esquerda, 1 = direita
+    global y_dir  # 0 = acima, 1 = abaixo
+    acoes = ["acima", "abaixo", "esquerda", "direita", "aspirar"]
+
+    # Funções de escolha do movimento
+    def vert():
+        global y_dir
+        if (y == 1 and y_dir == 0) or (y == 5 and y_dir == 1):
+            y_dir = 0 ** y_dir
+        return acoes[y_dir]
+
+    def hori():
+        global x_dir
+        if (x == 1 and x_dir == 0) or (x == 5 and x_dir == 1):
+            x_dir = 0 ** x_dir
+            return vert()
+        return acoes[x_dir + 2]
+
+    def escolher_acao():
+        if estado == 2:
+            return acoes[4]
+        return hori()
+
+    # Ponto de execução da escolha do agente
+    return escolher_acao()
+
 
 # # Preparação do espaço
 # Gera o espaço da sala como uma matriz 6x6
@@ -48,12 +66,11 @@ for y in [0, 6]:
         espaco[x][y] = 1
 
 #Pegar perceppção
-posxy = [1,1]
-exibir(espaco)
-plt.pause(1)
+posxy = [1, 1]
 
-acoes = ["acima", "abaixo", "esquerda", "direita", "aspirar"]
-pontos = 0
+#  Variáveis de mapeamento do ultimo movimento
+x_dir = 1 # 0 = esquerda, 1 = direita
+y_dir = 1 # 0 = acima, 1 = abaixo
 
 # Execução do ambiente
 while True:
