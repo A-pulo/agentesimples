@@ -229,3 +229,12 @@ while True:
         print(f"Pontos: {pontos}")
         break
     exibir(espaco)
+
+#A sua solução é extensível para um mundo 3 x 3? E para um mundo 6 x 6? Explique sua resposta.
+#No momento não funcionado com mundos diferentes de 6x6 porem a solução é extensivel para mundos de tamanhos diferentes a partir de pequenas adaptações no código
+#Exemplo: Linha 170: está criando uma matriz 6x6
+#Exeplo: Linha 176: criando parades para um mundo 6x6
+#Entre outras modificações que poderiam receber outro valor
+
+#É possível ter todo o espaço limpo efetivamente? Justifique sua resposta.
+#Sim. É sempre verificado se ainda há sujeira no tabuleiro e é sempre verificado a menor distancia ta posição até a sujeira
